@@ -43,14 +43,11 @@ App.PlayersRoute = Ember.Route.extend({
 
 App.NewPlayerController = Ember.ObjectController.extend({
   needs: "team",
-  team: Ember.computed.alias("controllers.team"),
+  team: Ember.computed.alias("controllers.team.model"),
   actions: {
     createPlayer: function() {
       var name = this.get('newName');
       if (!name.trim()) {return;}
-
-
-      var team_id = this.get('controllers.team.id');
 
       var player = this.store.createRecord('player', {
         name: name
@@ -58,9 +55,10 @@ App.NewPlayerController = Ember.ObjectController.extend({
 
       this.set('newName', '');
 
-      player.save();
       var team = this.get('team').get('model');
       team.get('players').pushObject(player);
+      player.save();
+      team.save();
     }
   }
 });
@@ -88,7 +86,7 @@ App.TeamsController = Ember.ArrayController.extend({
 });
 
 App.Team = DS.Model.extend({
-  players: DS.hasMany('player'),
+  players: DS.hasMany('player', {async:true}),
   name: DS.attr('string'),
   city: DS.attr('string')
 });
