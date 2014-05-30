@@ -1,7 +1,7 @@
 Stats Keeper
 ===========
 
-A Simple stat tracking application built in Ember.
+This project was done in order to learn ember. Below are the user stories:
 ===================================================
 
 Before the game starts, the stats keeper needs to enter the names of the teams who are playing, and the names of the players on the teams. To keep things simple, we'll make it so that this app can only be used for a single game at a time, at least to start (otherwise, we'd have to have a many-to-many relationship between teams and games).
